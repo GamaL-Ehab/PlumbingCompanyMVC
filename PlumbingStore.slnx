@@ -1,0 +1,7 @@
+<Solution>
+  <Project Path="CoreLayer/CoreLayer.csproj" />
+  <Project Path="EntityLayer/EntityLayer.csproj" />
+  <Project Path="PlumbingStore/PlumbingStore.csproj" />
+  <Project Path="RepositoryLayer/RepositoryLayer.csproj" />
+  <Project Path="ServiceLayer/ServiceLayer.csproj" />
+</Solution>
