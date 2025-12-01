@@ -1,0 +1,16 @@
+﻿using AutoMapper;
+using EntityLayer.WebApplication.Entities;
+using EntityLayer.WebApplication.ViewModels.TestimonialVM;
+
+namespace ServiceLayer.AutoMapper
+{
+    public class TestimonialMapper : Profile
+    {
+        public TestimonialMapper() 
+        {
+            CreateMap<Testimonial, TestimonialListVM>().ReverseMap();
+            CreateMap<Testimonial, TestimonialAddVM>().ReverseMap();
+            CreateMap<Testimonial, TestimonialUpdateVM>().ReverseMap();
+        }
+    }
+}

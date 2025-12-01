@@ -1,4 +1,5 @@
 using RepositoryLayer.Extentions;
+using ServiceLayer.Extentions;
 
 namespace PlumbingStore
 {
@@ -11,6 +12,7 @@ namespace PlumbingStore
             // Add services to the container.
             builder.Services.AddControllersWithViews();
             builder.Services.LoadRepositoryLayerExtensions(builder.Configuration);
+            builder.Services.LoadServiceLayerExtensions();
 
             var app = builder.Build();
 
