@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using EntityLayer.WebApplication.Entities;
-using EntityLayer.WebApplication.ViewModels.ContactVM;
+using EntityLayer.WebApplication.ViewModels;
 
 namespace ServiceLayer.AutoMapper
 {

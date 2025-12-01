@@ -10,6 +10,6 @@ namespace RepositoryLayer.Repositories.Abstract
         void Delete(Entity entity);
         IQueryable<Entity> GetAllAsync();
         IQueryable<Entity> Where(Expression<Func<Entity, bool>> predicate);
-        Task<Entity> GetEntityByIdAsync(int id);
+        Task<Entity> GetByIdAsync(int id);
     }
 }

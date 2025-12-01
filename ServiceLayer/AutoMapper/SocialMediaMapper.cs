@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using EntityLayer.WebApplication.Entities;
-using EntityLayer.WebApplication.ViewModels.SocialMediaVM;
+using EntityLayer.WebApplication.ViewModels;
 
 namespace ServiceLayer.AutoMapper
 {

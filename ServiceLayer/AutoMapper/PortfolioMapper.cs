@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using EntityLayer.WebApplication.Entities;
-using EntityLayer.WebApplication.ViewModels.PortfolioVM;
+using EntityLayer.WebApplication.ViewModels;
 
 namespace ServiceLayer.AutoMapper
 {
