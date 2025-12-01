@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CoreLayer.BaseEntity
+﻿namespace CoreLayer.BaseEntity
 {
-    public abstract class BaseEntity
+    public abstract class BaseEntity : IBaseEntity
     {
         public virtual int Id { get; set; }
         public virtual string CreatedDate { get; set; } = DateTime.Now.ToString("d");
