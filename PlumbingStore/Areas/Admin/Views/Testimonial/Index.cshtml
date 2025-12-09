@@ -1,0 +1,53 @@
+﻿@model List<TestimonialListVM>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="d-flex flex-wrap justify-content-between align-items-center">
+	<h5 class="card-title fs-1">Testimonials</h5>
+	<a asp-controller="Testimonial" asp-action="AddTestimonial" class="btn btn-primary">Add +</a>
+</div>
+
+<nav>
+	<ol class="breadcrumb">
+		<li class="breadcrumb-item"><a asp-controller="Dashboard" asp-action="Index">Dashboard</a></li>
+		<li class="breadcrumb-item active">Testimonials</li>
+	</ol>
+</nav>
+
+<div class="card">
+	<div class="card-body">
+		<!-- Table with hoverable rows -->
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th scope="col">Name</th>
+					<th scope="col">Title</th>
+					<th scope="col">Comment</th>
+					<th scope="col">Created Date</th>
+					<th scope="col">Updated Date</th>
+					<th scope="col">Edit</th>
+					<th scope="col">Delete</th>
+				</tr>
+			</thead>
+			<tbody>
+				@foreach (var testimonial in Model)
+				{
+					<tr>
+						<td>@testimonial.FullName</td>
+						<td>@testimonial.Title</td>
+						<td>@testimonial.Comment</td>
+						<td>@testimonial.CreatedDate</td>
+						<td>@testimonial.UpdatedDate</td>
+						<td><a asp-controller="Testimonial" asp-action="UpdateTestimonial" asp-route-id="@testimonial.Id" data-id="@testimonial.Id" class="btn btn-warning btn-sm text-white">Edit</a></td>
+						<td><a asp-controller="Testimonial" asp-action="DeleteTestimonial" asp-route-id="@testimonial.Id" data-id="@testimonial.Id" class="btn btn-danger btn-sm">Delete</a></td>
+					</tr>
+				}
+			</tbody>
+		</table>
+		<!-- End Table with hoverable rows -->
+
+	</div>
+</div>
+

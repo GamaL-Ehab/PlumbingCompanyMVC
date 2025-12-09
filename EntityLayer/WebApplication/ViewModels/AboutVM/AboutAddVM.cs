@@ -1,4 +1,6 @@
-﻿namespace EntityLayer.WebApplication.ViewModels
+﻿using Microsoft.AspNetCore.Http;
+
+namespace EntityLayer.WebApplication.ViewModels
 {
     public class AboutAddVM
     {
@@ -10,7 +12,7 @@
         public int HardWorkers { get; set; }
         public string FileType { get; set; } = null!;
         public string FileName { get; set; } = null!;
-
+        public IFormFile Photo { get; set; } = null!;
         public int SocialMediaId { get; set; }
         public SocialMediaAddVM SocialMedia { get; set; } = null!;
     }

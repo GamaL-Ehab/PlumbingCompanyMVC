@@ -1,0 +1,50 @@
+﻿@model ServiceUpdateVM
+@{
+    ViewData["Title"] = "UpdateService";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h5 class="card-title fs-1">Update Service</h5>
+
+<nav>
+	<ol class="breadcrumb">
+		<li class="breadcrumb-item"><a asp-controller="Dashboard" asp-action="Index">Dashboard</a></li>
+		<li class="breadcrumb-item"><a asp-action="Index">Service</a></li>
+		<li class="breadcrumb-item active">Update</li>
+	</ol>
+</nav>
+
+<div class="card p-2 pt-4">
+	<div class="card-body">
+		<!-- Floating Labels Form -->
+		<form asp-controller="Service" asp-action="UpdateService" method="post" class="row g-3">
+			<input hidden type="hidden" asp-for="Id" />
+			<input hidden type="hidden" asp-for="RowVersion" />
+
+			<div class="col-md-6">
+				<div class="form-floating">
+					<input asp-for="Name" type="text" class="form-control" placeholder="Name">
+					<label asp-for="Name">Name</label>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="form-floating">
+					<input asp-for="Icon" type="text" class="form-control" placeholder="Icon">
+					<label asp-for="Icon">Icon</label>
+				</div>
+			</div>
+			<div class="col-md-12">
+				<div class="form-floating">
+					<textarea asp-for="Description" type="text" class="form-control" style="min-height: 100px;" placeholder="Description"></textarea>
+					<label asp-for="Description">Description</label>
+				</div>
+			</div>
+
+			<div class="text-end">
+				<button type="reset" class="btn btn-secondary">Reset</button>
+				<button type="submit" class="btn btn-primary">Submit</button>
+			</div>
+		</form><!-- End floating Labels Form -->
+	</div>
+</div>
+

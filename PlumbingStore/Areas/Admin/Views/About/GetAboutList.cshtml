@@ -1,0 +1,120 @@
+﻿@model List<AboutListVM>
+
+@{
+	ViewData["Title"] = "GetAboutList";
+	Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="d-flex flex-wrap justify-content-between align-items-center">
+	<h5 class="card-title fs-1">About Us</h5>
+	<a asp-controller="About" asp-action="AddAbout" class="btn btn-primary">Add +</a>
+</div>
+
+<nav>
+	<ol class="breadcrumb">
+		<li class="breadcrumb-item"><a asp-controller="Dashboard" asp-action="Index">Dashboard</a></li>
+		<li class="breadcrumb-item active">About Us</li>
+	</ol>	
+</nav>
+
+<div class="card">
+	<div class="card-body">
+		<!-- Table with hoverable rows -->
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th scope="col">Header</th>
+					<th scope="col">Created Date</th>
+					<th scope="col">Updated Date</th>
+					<th scope="col">Delete</th>
+				</tr>
+			</thead>
+			<tbody>
+				@foreach (var about in Model)
+				{
+					<tr>
+						<td>@about.Header</td>
+						<td>@about.CreatedDate</td>
+						<td>@about.UpdatedDate</td>
+						<td><a asp-controller="About" asp-action="DeleteAbout" asp-route-id="@about.Id" data-id="@about.Id" class="btn btn-danger btn-sm">Delete</a></td>
+					</tr>
+				}
+			</tbody>
+		</table>
+		<!-- End Table with hoverable rows -->
+
+	</div>
+</div>
+
+
+@foreach (var about in Model)
+{
+	<section class="section profile">
+		<div class="row">
+			<div class="col-xl-4">
+
+				<div class="card">
+					<div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
+						<img src="@about.FileName" alt="@about.Header" class="rounded-circle">
+						<div class="social-links mt-2">
+							<a href="@about.SocialMedia.Twitter" class="twitter"><i class="bi bi-twitter"></i></a>
+							<a href="@about.SocialMedia.Facebook" class="facebook"><i class="bi bi-facebook"></i></a>
+							<a href="@about.SocialMedia.Instagram" class="instagram"><i class="bi bi-instagram"></i></a>
+							<a href="@about.SocialMedia.LinkedIn" class="linkedin"><i class="bi bi-linkedin"></i></a>
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+			<div class="col-xl-8">
+
+				<div class="card">
+					<div class="card-body pt-3">
+						<!-- Bordered Tabs -->
+
+						<div class="tab-content pt-2">
+							<div class="tab-pane fade show active profile-overview" id="profile-overview">
+								<h5 class="card-title">About Us</h5>
+								<p class="small fst-italic">@about.Description</p>
+
+								<h5 class="card-title">Details</h5>
+
+								<div class="row">
+									<div class="col-lg-3 col-md-4 label ">Header</div>
+									<div class="col-lg-9 col-md-8">@about.Header</div>
+								</div>
+
+								<div class="row">
+									<div class="col-lg-3 col-md-4 label">Clients</div>
+									<div class="col-lg-9 col-md-8">@about.Clients</div>
+								</div>
+
+								<div class="row">
+									<div class="col-lg-3 col-md-4 label">Projects</div>
+									<div class="col-lg-9 col-md-8">@about.Projects</div>
+								</div>
+
+								<div class="row">
+									<div class="col-lg-3 col-md-4 label">Hard Workers</div>
+									<div class="col-lg-9 col-md-8">@about.HardWorkers</div>
+								</div>
+
+								<div class="row">
+									<div class="col-lg-3 col-md-4 label">Hours Of Support</div>
+									<div class="col-lg-9 col-md-8">@about.HoursOfSupport</div>
+								</div>
+
+								<a asp-controller="About" asp-action="UpdateAbout" asp-route-id="@about.Id" data-id="@about.Id" class="btn btn-warning text-white">Edit</a>
+							</div>
+						</div><!-- End Bordered Tabs -->
+
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</section>
+
+}

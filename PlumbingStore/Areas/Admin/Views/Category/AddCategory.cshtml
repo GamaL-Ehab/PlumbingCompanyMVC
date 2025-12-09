@@ -1,0 +1,35 @@
+﻿@model CategoryAddVM
+@{
+    ViewData["Title"] = "AddCategory";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h5 class="card-title fs-1">Add New Category</h5>
+
+<nav>
+	<ol class="breadcrumb">
+		<li class="breadcrumb-item"><a asp-controller="Dashboard" asp-action="Index">Dashboard</a></li>
+		<li class="breadcrumb-item"><a asp-action="Index">Category</a></li>
+		<li class="breadcrumb-item active">Add</li>
+	</ol>
+</nav>
+
+<div class="card p-2 pt-4">
+	<div class="card-body">
+		<!-- Floating Labels Form -->
+		<form asp-controller="Category" asp-action="AddCategory" method="post" class="row g-3">
+			<div class="col-md-12">
+				<div class="form-floating">
+					<input asp-for="Name" type="text" class="form-control" placeholder="Name">
+					<label asp-for="Name">Name</label>
+				</div>
+			</div>
+
+			<div class="text-end">
+				<button type="reset" class="btn btn-secondary">Reset</button>
+				<button type="submit" class="btn btn-primary">Submit</button>
+			</div>
+		</form><!-- End floating Labels Form -->
+	</div>
+</div>
+

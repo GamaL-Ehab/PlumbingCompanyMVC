@@ -1,0 +1,60 @@
+﻿@model List<HomePageListVM>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="d-flex flex-wrap justify-content-between align-items-center">
+	<h5 class="card-title fs-1">Home Page</h5>
+	<a asp-controller="HomePage" asp-action="AddHomePage" class="btn btn-primary">Add +</a>
+</div>
+
+<nav>
+	<ol class="breadcrumb">
+		<li class="breadcrumb-item"><a asp-controller="Dashboard" asp-action="Index">Dashboard</a></li>
+		<li class="breadcrumb-item active">Home Page </li>
+	</ol>
+</nav>
+
+<div class="card">
+	<div class="card-body">
+		<!-- Table with hoverable rows -->
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th scope="col">Header</th>
+					<th scope="col">Description</th>
+					<th scope="col">Video Link</th>
+					<th scope="col">Created Date</th>
+					<th scope="col">Updated Date</th>
+					<th scope="col">Edit</th>
+					<th scope="col">Delete</th>
+				</tr>
+			</thead>
+			<tbody>
+				@foreach (var homePage in Model)
+				{
+					<tr>
+						<td>@homePage.Header</td>
+						<td>@homePage.Description</td>
+						@if (homePage.VideoLink is not null)
+						{
+							<td><span class="badge bg-success">Assigned</span></td>
+						}
+						else
+						{
+							<td><span class="badge bg-secondary">Not Assigned</span></td>
+						}
+						<td>@homePage.CreatedDate</td>
+						<td>@homePage.UpdatedDate</td>
+						<td><a asp-controller="HomePage" asp-action="UpdateHomePage" asp-route-id="@homePage.Id" data-id="@homePage.Id" class="btn btn-warning btn-sm text-white">Edit</a></td>
+						<td><a asp-controller="HomePage" asp-action="DeleteHomePage" asp-route-id="@homePage.Id" data-id="@homePage.Id" class="btn btn-danger btn-sm">Delete</a></td>
+					</tr>
+				}
+			</tbody>
+		</table>
+		<!-- End Table with hoverable rows -->
+
+	</div>
+</div>
+

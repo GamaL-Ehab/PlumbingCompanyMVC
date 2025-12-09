@@ -51,71 +51,64 @@
         <ul class="sidebar-nav" id="sidebar-nav">
 
             <li class="nav-item">
-                <a class="nav-link " href="index.html">
+                <a class="nav-link" asp-controller="Dashboard" asp-action="Index">
                     <i class="bi bi-grid"></i>
                     <span>Dashboard</span>
                 </a>
             </li><!-- End Dashboard Nav -->
 
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#">
+                <a asp-controller="About" asp-action="GetAboutList" class="nav-link collapsed">
                     <i class="bi bi-building"></i>
                     <span>About Us</span>
                 </a>
             </li><!-- End About Page Nav -->
 
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#">
+                <a asp-controller="Category" asp-action="Index" class="nav-link collapsed">
                     <i class="bi bi-columns-gap"></i>
                     <span>Category</span>
                 </a>
             </li><!-- End Category Page Nav -->
 
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#">
+                <a asp-controller="Contact" asp-action="Index" class="nav-link collapsed">
                     <i class="bi bi-telephone"></i>
                     <span>Contact Us</span>
                 </a>
             </li><!-- End Contact Page Nav -->
 
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#">
+                <a asp-controller="HomePage" asp-action="Index" class="nav-link collapsed">
                     <i class="bi bi-house"></i>
                     <span>Home Page</span>
                 </a>
             </li><!-- End Home Page Nav -->
 
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#">
+                <a asp-controller="Portfolio" asp-action="Index" class="nav-link collapsed">
                     <i class="bi bi-card-heading"></i>
                     <span>Portfolio</span>
                 </a>
             </li><!-- End Portfolio Page Nav -->
 
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#">
+                <a asp-controller="Service" asp-action="Index" class="nav-link collapsed">
                     <i class="bi bi-boxes"></i>
                     <span>Services</span>
                 </a>
             </li><!-- End Services Page Nav -->
 
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#">
-                    <i class="bi bi-envelope"></i>
-                    <span>Social Media</span>
-                </a>
-            </li><!-- End Social Media Page Nav -->
-
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#">
+                <a asp-controller="Team" asp-action="Index" class="nav-link collapsed">
                     <i class="bi bi-people"></i>
                     <span>Team</span>
                 </a>
             </li><!-- End Team Page Nav -->
 
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#">
-                    <i class="bi bi-square-text"></i>
+                <a asp-controller="Testimonial" asp-action="Index" class="nav-link collapsed">
+                    <i class="bi bi-chat-square-text"></i>
                     <span>Testimonial</span>
                 </a>
             </li><!-- End Testimonial Page Nav -->
@@ -152,8 +145,7 @@
     <script src="~/Admin/assets/vendor/php-email-form/validate.js"></script>
 
     <!-- Template Main JS File -->
-    <script src="assets/js/main.js"></script>
-
+    <script src="~/Admin/assets/js/main.js"></script>
 </body>
 
 </html>

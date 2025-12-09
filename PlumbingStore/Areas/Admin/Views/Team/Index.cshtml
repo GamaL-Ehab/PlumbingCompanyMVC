@@ -1,0 +1,52 @@
+﻿@model List<TeamListVM>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="d-flex flex-wrap justify-content-between align-items-center">
+	<h5 class="card-title fs-1">Teams</h5>
+	<a asp-controller="Team" asp-action="AddTeam" class="btn btn-primary">Add +</a>
+</div>
+
+<nav>
+	<ol class="breadcrumb">
+		<li class="breadcrumb-item"><a asp-controller="Dashboard" asp-action="Index">Dashboard</a></li>
+		<li class="breadcrumb-item active">Teams</li>
+	</ol>
+</nav>
+
+<div class="card">
+	<div class="card-body">
+		<!-- Table with hoverable rows -->
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th scope="col">Name</th>
+					<th scope="col">Title</th>
+					<th scope="col">Created Date</th>
+					<th scope="col">Updated Date</th>
+					<th scope="col">Edit</th>
+					<th scope="col">Delete</th>
+				</tr>
+			</thead>
+			<tbody>
+				@foreach (var team in Model)
+				{
+					<tr>
+						<td>@team.FullName</td>
+						<td>@team.Title</td>
+						<td>@team.CreatedDate</td>
+						<td>@team.UpdatedDate</td>
+						<td><a asp-controller="Team" asp-action="UpdateTeam" asp-route-id="@team.Id" data-id="@team.Id" class="btn btn-warning btn-sm text-white">Edit</a></td>
+						<td><a asp-controller="Team" asp-action="DeleteTeam" asp-route-id="@team.Id" data-id="@team.Id" class="btn btn-danger btn-sm">Delete</a></td>
+					</tr>
+				}
+			</tbody>
+		</table>
+		<!-- End Table with hoverable rows -->
+
+	</div>
+</div>
+
