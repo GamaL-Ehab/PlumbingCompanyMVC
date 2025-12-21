@@ -1,13 +1,18 @@
 ﻿using EntityLayer.WebApplication.ViewModels;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Mvc;
-using ServiceLayer.Services.Abstract;
-using ServiceLayer.Services.Concrete;
-using System.Threading.Tasks;
+using ServiceLayer.Services.WebApplication.Abstract;
+using ServiceLayer.Services.WebApplication.Concrete;
 
 namespace PlumbingStore.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class TeamController(ITeamService _teamService) : Controller
+    public class TeamController(
+        ITeamService _teamService,
+        IValidator<TeamAddVM> _addValidator,
+        IValidator<TeamUpdateVM> _updateValidator
+        ) : Controller
     {
         public async Task<IActionResult> Index()
         {
@@ -24,8 +29,15 @@ namespace PlumbingStore.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> AddTeam(TeamAddVM input)
         {
-            await _teamService.AddAsync(input);
-            return RedirectToAction(nameof(Index));
+            var validation = await _addValidator.ValidateAsync(input);
+            if (validation.IsValid)
+            {
+                await _teamService.AddAsync(input);
+                return RedirectToAction(nameof(Index));
+            }
+
+            validation.AddToModelState(this.ModelState);
+            return View(input);
         }
 
         [HttpGet]
@@ -38,8 +50,15 @@ namespace PlumbingStore.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> UpdateTeam(TeamUpdateVM team)
         {
-            await _teamService.UpdateAsync(team);
-            return RedirectToAction(nameof(Index));
+            var validation = await _updateValidator.ValidateAsync(team);
+            if (validation.IsValid)
+            {
+                await _teamService.UpdateAsync(team);
+                return RedirectToAction(nameof(Index));
+            }
+
+            validation.AddToModelState(this.ModelState);
+            return View(team);
         }
 
         public async Task<IActionResult> DeleteTeam(int id)

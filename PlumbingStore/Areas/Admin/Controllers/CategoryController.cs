@@ -1,12 +1,17 @@
 ﻿using EntityLayer.WebApplication.ViewModels;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Mvc;
-using ServiceLayer.Services.Abstract;
-using System.Threading.Tasks;
+using ServiceLayer.Services.WebApplication.Abstract;
 
 namespace PlumbingStore.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class CategoryController(ICategoryService _categoryService) : Controller
+    public class CategoryController(
+        ICategoryService _categoryService,
+        IValidator<CategoryAddVM> _addValidator,
+        IValidator<CategoryUpdateVM> _updateValidator
+        ) : Controller
     {
         public async Task<IActionResult> Index()
         {
@@ -23,8 +28,15 @@ namespace PlumbingStore.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> AddCategory(CategoryAddVM input)
         {
-            await _categoryService.AddAsync(input);
-            return RedirectToAction(nameof(Index));
+            var validation = await _addValidator.ValidateAsync(input);
+            if (validation.IsValid)
+            {
+                await _categoryService.AddAsync(input);
+                return RedirectToAction(nameof(Index));
+            }
+
+            validation.AddToModelState(this.ModelState);
+            return View(input);
         }
 
         [HttpGet]
@@ -37,8 +49,15 @@ namespace PlumbingStore.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> UpdateCategory(CategoryUpdateVM input)
         {
-            await _categoryService.UpdateAsync(input);
-            return RedirectToAction(nameof(Index));
+            var validation = await _updateValidator.ValidateAsync(input);
+            if (validation.IsValid)
+            {
+                await _categoryService.UpdateAsync(input);
+                return RedirectToAction(nameof(Index));
+            }
+
+            validation.AddToModelState(this.ModelState);
+            return View(input);
         }
 
         public async Task<IActionResult> DeleteCategory(int id)

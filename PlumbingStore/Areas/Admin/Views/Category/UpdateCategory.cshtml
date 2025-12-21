@@ -18,6 +18,8 @@
 	<div class="card-body">
 		<!-- Floating Labels Form -->
 		<form asp-controller="Category" asp-action="UpdateCategory" method="post" class="row g-3">
+			<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
 			<input hidden type="hidden" asp-for="Id" />
 			<input hidden type="hidden" asp-for="RowVersion" />
 
@@ -25,6 +27,7 @@
 				<div class="form-floating">
 					<input asp-for="Name" type="text" class="form-control" placeholder="Name">
 					<label asp-for="Name">Name</label>
+					<span asp-validation-for="Name" class="text-danger"></span>
 				</div>
 			</div>
 

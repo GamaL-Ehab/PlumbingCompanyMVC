@@ -1,12 +1,17 @@
 ﻿using EntityLayer.WebApplication.ViewModels;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Mvc;
-using ServiceLayer.Services.Abstract;
-using System.Threading.Tasks;
+using ServiceLayer.Services.WebApplication.Abstract;
 
 namespace PlumbingStore.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class ContactController(IContactService _contactService) : Controller
+    public class ContactController(
+        IContactService _contactService,
+        IValidator<ContactAddVM> _addValidator,
+        IValidator<ContactUpdateVM> _updateValidator
+        ) : Controller
     {
         public async Task<IActionResult> Index()
         {
@@ -23,8 +28,15 @@ namespace PlumbingStore.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> AddContact(ContactAddVM input)
         {
-            await _contactService.AddAsync(input);
-            return RedirectToAction(nameof(Index));
+            var validation = await _addValidator.ValidateAsync(input);
+            if (validation.IsValid)
+            {
+                await _contactService.AddAsync(input);
+                return RedirectToAction(nameof(Index));
+            }
+
+            validation.AddToModelState(this.ModelState);
+            return View(input);
         }
 
         [HttpGet]
@@ -37,8 +49,15 @@ namespace PlumbingStore.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> UpdateContact(ContactUpdateVM contact)
         {
-            await _contactService.UpdateAsync(contact);
-            return RedirectToAction(nameof(Index));
+            var validation = await _updateValidator.ValidateAsync(contact);
+            if (validation.IsValid)
+            {
+                await _contactService.UpdateAsync(contact);
+                return RedirectToAction(nameof(Index));
+            }
+
+            validation.AddToModelState(this.ModelState);
+            return View(contact);      
         }
 
         public async Task<IActionResult> DeleteContact(int id)

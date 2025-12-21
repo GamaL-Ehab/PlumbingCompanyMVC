@@ -18,6 +18,8 @@
 	<div class="card-body">
 		<!-- Floating Labels Form -->
 		<form asp-controller="Testimonial" asp-action="UpdateTestimonial" method="post" enctype="multipart/form-data" class="row g-3">
+			<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
 			<input hidden asp-for="Id" type="hidden" />
 			<input hidden asp-for="RowVersion" type="hidden" />
 			<input hidden asp-for="FileName" type="text" value="PhotoName" />
@@ -27,24 +29,28 @@
 				<div>
 					<label asp-for="Photo">Photo</label>
 					<input asp-for="Photo" type="file" accept="image/*" class="form-control" placeholder="Photo">
+					<span asp-validation-for="Photo" class="text-danger"></span>
 				</div>
 			</div>
 			<div class="col-md-6">
 				<div class="form-floating">
 					<input asp-for="FullName" type="text" class="form-control" placeholder="FullName">
 					<label asp-for="FullName">FullName</label>
+					<span asp-validation-for="FullName" class="text-danger"></span>
 				</div>
 			</div>
 			<div class="col-md-6">
 				<div class="form-floating">
 					<input asp-for="Title" type="text" class="form-control" placeholder="Title">
 					<label asp-for="Title">Title</label>
+					<span asp-validation-for="Title" class="text-danger"></span>
 				</div>
 			</div>
 			<div class="col-md-12">
 				<div class="form-floating">
 					<input asp-for="Comment" type="text" class="form-control" placeholder="Comment">
 					<label asp-for="Comment">Comment</label>
+					<span asp-validation-for="Comment" class="text-danger"></span>
 				</div>
 			</div>
 

@@ -1,12 +1,18 @@
 ﻿using EntityLayer.WebApplication.ViewModels;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Mvc;
-using ServiceLayer.Services.Abstract;
-using System.Threading.Tasks;
+using ServiceLayer.Services.WebApplication.Abstract;
+using ServiceLayer.Services.WebApplication.Concrete;
 
 namespace PlumbingStore.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class PortfolioController(IPortfolioService _portfolioService) : Controller
+    public class PortfolioController(
+        IPortfolioService _portfolioService,
+        IValidator<PortfolioAddVM> _addValidator,
+        IValidator<PortfolioUpdateVM> _updateValidator
+        ) : Controller
     {
         public async Task<IActionResult> Index()
         {
@@ -23,8 +29,15 @@ namespace PlumbingStore.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> AddPortfolio(PortfolioAddVM input)
         {
-            await _portfolioService.AddAsync(input);
-            return RedirectToAction(nameof(Index));
+            var validation = await _addValidator.ValidateAsync(input);
+            if (validation.IsValid)
+            {
+                await _portfolioService.AddAsync(input);
+                return RedirectToAction(nameof(Index));
+            }
+
+            validation.AddToModelState(this.ModelState);
+            return View(input);
         }
 
         [HttpGet]
@@ -37,8 +50,15 @@ namespace PlumbingStore.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> UpdatePortfolio(PortfolioUpdateVM portfolio)
         {
-            await _portfolioService.UpdateAsync(portfolio);
-            return RedirectToAction(nameof(Index));
+            var validation = await _updateValidator.ValidateAsync(portfolio);
+            if (validation.IsValid)
+            {
+                await _portfolioService.UpdateAsync(portfolio);
+                return RedirectToAction(nameof(Index));
+            }
+
+            validation.AddToModelState(this.ModelState);
+            return View(portfolio);
         }
 
         public async Task<IActionResult> DeletePortfolio(int id)

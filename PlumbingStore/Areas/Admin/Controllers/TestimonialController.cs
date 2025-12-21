@@ -1,11 +1,18 @@
 ﻿using EntityLayer.WebApplication.ViewModels;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Mvc;
-using ServiceLayer.Services.Abstract;
+using ServiceLayer.Services.WebApplication.Abstract;
+using ServiceLayer.Services.WebApplication.Concrete;
 
 namespace PlumbingStore.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class TestimonialController(ITestimonialService _testimonialService) : Controller
+    public class TestimonialController(
+        ITestimonialService _testimonialService,
+        IValidator<TestimonialAddVM> _addValidator,
+        IValidator<TestimonialUpdateVM> _updateValidator
+        ) : Controller
     {
         public async Task<IActionResult> Index()
         {
@@ -22,8 +29,15 @@ namespace PlumbingStore.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> AddTestimonial(TestimonialAddVM input)
         {
-            await _testimonialService.AddAsync(input);
-            return RedirectToAction(nameof(Index));
+            var validation = await _addValidator.ValidateAsync(input);
+            if (validation.IsValid)
+            {
+                await _testimonialService.AddAsync(input);
+                return RedirectToAction(nameof(Index));
+            }
+
+            validation.AddToModelState(this.ModelState);
+            return View(input);         
         }
 
         [HttpGet]
@@ -36,8 +50,15 @@ namespace PlumbingStore.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> UpdateTestimonial(TestimonialUpdateVM testimonial)
         {
-            await _testimonialService.UpdateAsync(testimonial);
-            return RedirectToAction(nameof(Index));
+            var validation = await _updateValidator.ValidateAsync(testimonial);
+            if (validation.IsValid)
+            {
+                await _testimonialService.UpdateAsync(testimonial);
+                return RedirectToAction(nameof(Index));
+            }
+
+            validation.AddToModelState(this.ModelState);
+            return View(testimonial);        
         }
 
         public async Task<IActionResult> DeleteTestimonial(int id)

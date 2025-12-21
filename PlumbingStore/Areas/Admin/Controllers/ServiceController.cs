@@ -1,11 +1,18 @@
 ﻿using EntityLayer.WebApplication.ViewModels;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Mvc;
-using ServiceLayer.Services.Abstract;
+using ServiceLayer.Services.WebApplication.Abstract;
+using ServiceLayer.Services.WebApplication.Concrete;
 
 namespace PlumbingStore.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class ServiceController(IServiceService _serviceService) : Controller
+    public class ServiceController(
+        IServiceService _serviceService,
+        IValidator<ServiceAddVM> _addValidator,
+        IValidator<ServiceUpdateVM> _updateValidator
+        ) : Controller
     {
         public async Task<IActionResult> Index()
         {
@@ -22,8 +29,15 @@ namespace PlumbingStore.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> AddService(ServiceAddVM input)
         {
-            await _serviceService.AddAsync(input);
-            return RedirectToAction(nameof(Index));
+            var validation = await _addValidator.ValidateAsync(input);
+            if (validation.IsValid)
+            {
+                await _serviceService.AddAsync(input);
+                return RedirectToAction(nameof(Index));
+            }
+
+            validation.AddToModelState(this.ModelState);
+            return View(input);
         }
 
         [HttpGet]
@@ -36,8 +50,15 @@ namespace PlumbingStore.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> UpdateService(ServiceUpdateVM service)
         {
-            await _serviceService.UpdateAsync(service);
-            return RedirectToAction(nameof(Index));
+            var validation = await _updateValidator.ValidateAsync(service);
+            if (validation.IsValid)
+            {
+                await _serviceService.UpdateAsync(service);
+                return RedirectToAction(nameof(Index));
+            }
+
+            validation.AddToModelState(this.ModelState);
+            return View(service);
         }
 
         public async Task<IActionResult> DeleteService(int id)

@@ -1,0 +1,16 @@
+﻿using AutoMapper;
+using EntityLayer.WebApplication.Entities;
+using EntityLayer.WebApplication.ViewModels;
+
+namespace ServiceLayer.AutoMapper.WebApplication
+{
+    public class ContactMapper : Profile
+    {
+        public ContactMapper()
+        {
+            CreateMap<ContactUs, ContactListVM>().ReverseMap();
+            CreateMap<ContactUs, ContactAddVM>().ReverseMap();
+            CreateMap<ContactUs, ContactUpdateVM>().ReverseMap();
+        }
+    }
+}
