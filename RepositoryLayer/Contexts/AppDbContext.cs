@@ -1,16 +1,18 @@
-﻿using EntityLayer.WebApplication.Entities;
+﻿using EntityLayer.Identity.Entities;
+using EntityLayer.WebApplication.Entities;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 
 namespace RepositoryLayer.Contexts
 {
-    public class PlumbingDbContext : DbContext
+    public class AppDbContext : IdentityDbContext<AppUser, AppRole, string>
     {
-        public PlumbingDbContext(DbContextOptions options) : base(options)
+        public AppDbContext(DbContextOptions options) : base(options)
         {
         }
 
-        public PlumbingDbContext()
+        public AppDbContext()
         {
         }
 

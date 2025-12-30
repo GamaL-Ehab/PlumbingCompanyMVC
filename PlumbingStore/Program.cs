@@ -12,7 +12,7 @@ namespace PlumbingStore
             // Add services to the container.
             builder.Services.AddControllersWithViews();
             builder.Services.LoadRepositoryLayerExtensions(builder.Configuration);
-            builder.Services.LoadServiceLayerExtensions();
+            builder.Services.LoadServiceLayerExtensions(builder.Configuration);
 
             var app = builder.Build();
 
@@ -29,6 +29,7 @@ namespace PlumbingStore
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             #pragma warning disable ASP0014
@@ -38,6 +39,11 @@ namespace PlumbingStore
                          name: "Admin",
                          areaName: "Admin",
                          pattern: "Admin/{controller=Dashboard}/{action=Index}/{id?}");
+
+                endpoints.MapAreaControllerRoute(
+                         name: "User",
+                         areaName: "User",
+                         pattern: "User/{controller=Dashboard}/{action=Index}/{id?}");
 
                 endpoints.MapControllerRoute(
                 name: "default",

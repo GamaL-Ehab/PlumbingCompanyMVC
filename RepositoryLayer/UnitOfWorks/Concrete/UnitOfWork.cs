@@ -7,9 +7,9 @@ namespace RepositoryLayer.UnitOfWorks.Concrete
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private readonly PlumbingDbContext _context;
+        private readonly AppDbContext _context;
 
-        public UnitOfWork(PlumbingDbContext context)
+        public UnitOfWork(AppDbContext context)
         {
             _context = context;
         }

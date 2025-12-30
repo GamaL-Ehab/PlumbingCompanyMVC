@@ -1,12 +1,14 @@
 ﻿using EntityLayer.WebApplication.ViewModels;
 using FluentValidation;
 using FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ServiceLayer.Services.WebApplication.Abstract;
 using ServiceLayer.Services.WebApplication.Concrete;
 
 namespace PlumbingStore.Areas.Admin.Controllers
 {
+    [Authorize]
     [Area("Admin")]
     public class PortfolioController(
         IPortfolioService _portfolioService,

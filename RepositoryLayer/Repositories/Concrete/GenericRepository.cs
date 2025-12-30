@@ -8,10 +8,10 @@ namespace RepositoryLayer.Repositories.Concrete
 {
     public class GenericRepository<Entity> : IGenericRepository<Entity> where Entity : class, IBaseEntity, new()
     {
-        private readonly PlumbingDbContext _context;
+        private readonly AppDbContext _context;
         private readonly DbSet<Entity> _dbSet;
 
-        public GenericRepository(PlumbingDbContext context)
+        public GenericRepository(AppDbContext context)
         {
             _context = context;
             _dbSet = _context.Set<Entity>();
